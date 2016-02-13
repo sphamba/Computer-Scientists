@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>L'élément &lt;canvas&gt;</title>
+	</head>
+	<body style="margin: 0px; overflow: hidden">
+		
+		<canvas id="canvas"></canvas>
+		
+		<script>
+
+
+var canvas = document.getElementById("canvas"),
+	context = canvas.getContext("2d"),
+	width = window.innerWidth,
+	height = window.innerHeight,
+	ratio = window.devicePixelRatio;
+
+canvas.width  = width  * ratio;
+canvas.height = height * ratio;
+canvas.style.width  = width  + "px";
+canvas.style.height = height + "px";
+context.scale(ratio, ratio);
+
+
+context.fillStyle = "orange";
+context.fillStyle = "#ff8000";
+context.fillStyle = "#f80";
+context.fillStyle = "rgb(255, 128, 0)";
+context.fillRect(10, 20, 100, 200);
+
+context.fillStyle = "rgba(0, 0, 255, 0.8)";
+context.fillRect(60, 50, 100, 100);
+
+// context.clearRect(0, 0, width, height);
+
+context.strokeStyle = "#800";
+context.strokeRect(80, 70, 50, 130);
+
+
+context.beginPath();
+context.moveTo(200, 200);
+context.lineTo(100, 350);
+context.lineTo(350, 300);
+context.closePath();
+
+context.fillStyle = "#0f0";
+context.fill();
+
+context.strokeStyle = "#000";
+context.lineWidth = 5;
+context.stroke();
+
+
+context.beginPath();
+context.arc(280, 100, 70, 0, 0.75*Math.PI);
+context.fill();
+context.stroke();
+
+context.fillStyle = "#000";
+context.font = "30px Serif";
+context.fillText("Hello World!", 200, 30);
+
+
+		</script>
+		
+	</body>
+</html>
