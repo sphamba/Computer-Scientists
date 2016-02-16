@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Boucle d'animation</title>
+	</head>
+	<body style="margin: 0px; overflow: hidden">
+		
+		<canvas id="canvas"></canvas>
+		
+		<script>
+
+
+var width = window.innerWidth,
+	height = window.innerHeight,
+	ratio = window.devicePixelRatio;
+
+var canvas = document.getElementById("canvas"),
+	context = canvas.getContext("2d");
+
+canvas.width  = width  * ratio;
+canvas.height = height * ratio;
+canvas.style.width  = width  + "px";
+canvas.style.height = height + "px";
+context.scale(ratio, ratio);
+context.imageSmoothingEnabled = false;
+context.fillStyle = "rgba(255, 255, 255, 0.25)";
+
+
+		</script>
+		
+	</body>
+</html>
