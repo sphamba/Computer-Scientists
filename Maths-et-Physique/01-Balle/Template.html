@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Balle rebondissante</title>
+	</head>
+	<body style="margin: 0px; overflow: hidden">
+		
+		<canvas id="canvas"></canvas>
+		
+		<script>
+
+
+var canvas = document.getElementById("canvas"),
+	context = canvas.getContext("2d"),
+	width = window.innerWidth,
+	height = window.innerHeight,
+	ratio = window.devicePixelRatio;
+
+canvas.width  = width  * ratio;
+canvas.height = height * ratio;
+canvas.style.width  = width  + "px";
+canvas.style.height = height + "px";
+context.scale(ratio, ratio);
+
+
+
+
+
+animate();
+
+
+function animate() {
+	draw();
+	update();
+	requestAnimationFrame(animate);
+}
+
+
+function draw() {
+	context.clearRect(0, 0, width, height);
+	
+	
+}
+
+
+function update() {
+	
+}
+
+
+		</script>
+		
+	</body>
+</html>
