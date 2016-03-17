@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8"/>
-		<title>Balle rebondissante</title>
-	</head>
-	<body style="margin: 0px; overflow: hidden">
-		
-		<canvas id="canvas"></canvas>
-		
-		<script>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Balle rebondissante</title>
+    </head>
+    <body style="margin: 0px; overflow: hidden">
+        
+        <canvas id="canvas"></canvas>
+        
+        <script>
 
 
 var canvas = document.getElementById("canvas"),
-	context = canvas.getContext("2d"),
-	width = window.innerWidth,
-	height = window.innerHeight,
-	ratio = window.devicePixelRatio;
+    context = canvas.getContext("2d"),
+    width = window.innerWidth,
+    height = window.innerHeight,
+    ratio = window.devicePixelRatio;
 
 canvas.width  = width  * ratio;
 canvas.height = height * ratio;
@@ -25,65 +25,65 @@ context.scale(ratio, ratio);
 
 
 var gravity = 1,
-	radius = 20,
-	dt = 1,
-	restit = 0.95;
+    radius = 20,
+    dt = 1,
+    restit = 0.95;
 
 
 var x = 50,
-	y = 50,
-	vx = 10,
-	vy = 0;
+    y = 50,
+    vx = 10,
+    vy = 0;
 
 
 animate();
 
 
 function animate() {
-	draw();
-	update();
-	requestAnimationFrame(animate);
+    draw();
+    update();
+    requestAnimationFrame(animate);
 }
 
 
 function draw() {
-	context.clearRect(0, 0, width, height);
-	
-	context.beginPath();
-	context.arc(x, y, radius, 0, 2*Math.PI);
-	context.stroke();
+    context.clearRect(0, 0, width, height);
+    
+    context.beginPath();
+    context.arc(x, y, radius, 0, 2*Math.PI);
+    context.stroke();
 }
 
 
 function update() {
-	vy += gravity * dt;
-	x += vx * dt;
-	y += vy * dt;
-	
-	
-	if (x < radius) {
-		x = radius;
-		vx *= -restit;
-	}
-	
-	if (x > width - radius) {
-		x = width - radius;
-		vx *= -restit;
-	}
-	
-	if (y < radius) {
-		y = radius;
-		vy *= -restit;
-	}
-	
-	if (y > height - radius) {
-		y = height - radius;
-		vy *= -restit;
-	}
+    vy += gravity * dt;
+    x += vx * dt;
+    y += vy * dt;
+    
+    
+    if (x < radius) {
+        x = radius;
+        vx *= -restit;
+    }
+    
+    if (x > width - radius) {
+        x = width - radius;
+        vx *= -restit;
+    }
+    
+    if (y < radius) {
+        y = radius;
+        vy *= -restit;
+    }
+    
+    if (y > height - radius) {
+        y = height - radius;
+        vy *= -restit;
+    }
 }
 
 
-		</script>
-		
-	</body>
+        </script>
+        
+    </body>
 </html>
