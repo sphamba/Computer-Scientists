@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Balle rebondissante</title>
+    </head>
+    <body style="margin: 0px; overflow: hidden">
+        
+        <canvas id="canvas"></canvas>
+        
+        <script>
+
+
+var canvas  = document.getElementById("canvas"),
+    context = canvas.getContext("2d"),
+    width   = window.innerWidth,
+    height  = window.innerHeight,
+    ratio   = window.devicePixelRatio;
+
+canvas.width  = width  * ratio;
+canvas.height = height * ratio;
+canvas.style.width  = width  + "px";
+canvas.style.height = height + "px";
+context.scale(ratio, ratio);
+
+
+var gravity = 1,
+    radius = 20,
+    dt = 1,
+    mass = 1,
+    inertia = 100,
+    restit = 0.95,
+    grip = 1.8,
+    fric = 0.3;
+
+
+var x = 50,
+    y = 50,
+    o = 0,
+    vx = 12,
+    vy = 0,
+    vo = 0;
+
+
+animate();
+
+
+function animate() {
+    draw();
+    update();
+    requestAnimationFrame(animate);
+}
+
+
+function draw() {
+    context.clearRect(0, 0, width, height);
+    
+    context.beginPath();
+    context.moveTo(x, y);
+    context.arc(x, y, radius, o, o + 2*Math.PI);
+    context.stroke();
+}
+
+
+function update() {
+    applyForce(0, mass * gravity, 0, 0);
+    x += vx * dt;
+    y += vy * dt;
+    o += vo * dt;
+    
+    
+    if (x < radius) {
+        x = radius;
+        generateContactForce(1, 0);
+    }
+    
+    if (x > width - radius) {
+        x = width - radius;
+        generateContactForce(-1, 0);
+    }
+    
+    if (y < radius) {
+        y = radius;
+        generateContactForce(0, 1);
+    }
+    
+    if (y > height - radius) {
+        y = height - radius;
+        generateContactForce(0, -1);
+    }
+}
+
+
+function applyForce(fx, fy, cx, cy) {
+    var torque = -fx * cy + fy * cx,
+        
+        ax = fx / mass,
+        ay = fy / mass,
+        ao = torque / inertia;
+    
+    vx += ax * dt;
+    vy += ay * dt;
+    vo += ao * dt;
+}
+
+
+function generateContactForce(nx, ny) {
+    var tx, ty, vNormal, vTangent, vContact, fNormal, fTangent, fTangentMax, fx, fy;
+    
+    tx = -ny;
+    ty =  nx;
+    
+    vNormal  = vx * nx + vy * ny;
+    vTangent = vx * tx + vy * ty;
+    vContact = vTangent - vo * radius;
+    
+    fNormal  = -(1 + restit) * vNormal * mass / dt;
+    fTangent = - grip * vContact / (1/mass + radius*radius/inertia) / dt;
+    fTangentMax = fric * fNormal;
+    
+    if (fTangent > fTangentMax) {
+        fTangent = fTangentMax;
+    }
+    if (fTangent < -fTangentMax) {
+        fTangent = -fTangentMax;
+    }
+    
+    fx = fNormal * nx + fTangent * tx;
+    fy = fNormal * ny + fTangent * ty;
+    
+    applyForce(fx, fy, -nx * radius, -ny * radius);
+}
+
+
+        </script>
+        
+    </body>
+</html>
