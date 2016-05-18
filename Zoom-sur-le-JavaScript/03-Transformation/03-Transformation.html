@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Transformation du canvas</title>
+	</head>
+	<body style="margin: 0px; overflow: hidden">
+		
+		<canvas id="canvas"></canvas>
+		
+		<script>
+
+
+var width = window.innerWidth,
+	height = window.innerHeight,
+	ratio = window.devicePixelRatio;
+
+var canvas = document.getElementById("canvas"),
+	context = canvas.getContext("2d");
+
+canvas.width  = width  * ratio;
+canvas.height = height * ratio;
+canvas.style.width  = width  + "px";
+canvas.style.height = height + "px";
+context.scale(ratio, ratio);
+
+
+
+context.save();
+
+var tx = 100,
+	ty = 20,
+	angle = 2*Math.PI * 0.05,
+	sx = 2,
+	sy = 1;
+
+context.translate(tx, ty);
+context.rotate(angle);
+context.scale(sx, sy);
+
+// context.transform(1, 0, 0, 1, 0, 0);
+// context.transform(1, 0, 0, 1, tx, ty);
+// context.transform(1, 0.5, 0, 1, tx, ty);
+// context.transform(Math.cos(angle), Math.sin(angle), -Math.sin(angle), Math.cos(angle), tx, ty);
+// context.transform(sx * Math.cos(angle), sx * Math.sin(angle), sy * -Math.sin(angle), sy * Math.cos(angle), tx, ty);
+
+
+// context.restore();
+
+
+
+context.strokeStyle = "#ccc";
+for (var i = -1; i <= 3; i++) {
+	context.beginPath();
+	context.moveTo(-70, 50*i);
+	context.lineTo(170, 50*i);
+	context.moveTo(50*i, -70);
+	context.lineTo(50*i, 170);
+	context.stroke();
+}
+
+context.strokeStyle = "#000";
+context.lineWidth = 2;
+context.lineJoin = "round";
+context.lineCap = "round";
+
+context.beginPath();
+context.moveTo(0, 0);
+context.lineTo(100, 0);
+context.lineTo(90, -5);
+context.moveTo(100, 0);
+context.lineTo(90, 5);
+context.moveTo(0, 0);
+context.lineTo(0, 100);
+context.lineTo(-5, 90);
+context.moveTo(0, 100);
+context.lineTo(5, 90);
+context.stroke();
+
+context.font = "24px Serif";
+context.fillText("Hello World!", 50, 60);
+
+context.font = "italic 24px Serif";
+context.fillText("x", 100, 20);
+context.fillText("y", 10, 110);
+
+
+
+		</script>
+		
+	</body>
+</html>
